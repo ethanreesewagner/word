@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Guess The Word</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head><script>var one=0; var two=0;</script>
+<body style="background-color:#ADD8E6;">
+	<center>
+	<form>
+		<h1>Login</h1>
+		<input id="person1" type="text" name="person1" placeholder="Person 1"><br>
+		<input id="person2" type="text" name="person2" placeholder="Person 2" style="margin-top: 10px;"><br>
+		<input type="submit" value="Submit" style="margin-top: 10px;" onclick="login()">
+</form>
+<h1 id="p1">1: 0</h1>
+<h1 id="p2">2: 0</h1>
+<input type="text" placeholder="Word" id="word"><br><br><input type="submit" value="Submit" onclick="submit()">
+<h1 id="underscore">____________</h1><br>
+<input type="text" placeholder="Word" id="guess"> 
+<input type="submit" value="Submit" onclick="check()">
+<script>
+	function login(){
+		localStorage.setItem("person1",document.getElementById("person1").value); 
+		localStorage.setItem("person2",document.getElementById("person2").value); 
+		document.getElementById('p1').innerHTML=localStorage.getItem('person1')+': '+one; 
+		document.getElementById('p2').innerHTML=localStorage.getItem('person2')+': '+two; 
+		event.preventDefault();
+	}
+	function submit(){
+		var word=document.getElementById('word').value;
+		var underscore='';
+		for(var i=0; i<word.length; i++){
+			if(i%2==0){
+				underscore+='_';
+			}
+			else{
+				underscore+=word[i];
+			}
+		}
+		document.getElementById('underscore').innerHTML=underscore;
+		document.getElementById('word').style.display='none';
+		document.getElementById('submit').style.display='none';
+		return false;
+	}
+	function check(){
+		var guess=document.getElementById('guess').value;
+		var word=document.getElementById('word').value;
+		if(guess==word){
+			if(localStorage.getItem('person1')==document.getElementById('person1').value){
+				one++;
+				document.getElementById('p1').innerHTML=localStorage.getItem('person1')+': '+one; 
+			}
+			else{
+				two++;
+				document.getElementById('p2').innerHTML=localStorage.getItem('person2')+': '+two; 
+			} 
+				document.getElementById('guess').value='';
+				document.getElementById('underscore').innerHTML='____________';
+				document.getElementById('word').value='';
+				document.getElementById('word').style.display='block';
+				document.getElementById('submit').style.display='block';
+				return false;
+		}else{
+			alert('Wrong!');
+			document.getElementById('guess').value='';
+			document.getElementById('underscore').innerHTML='____________';
+			document.getElementById('word').value='';
+			document.getElementById('word').style.display='block';
+			document.getElementById('submit').style.display='block';
+		}
+		return false;
+	}
+</script>
+<h3>In the game, the first person sends the second person a word. Some of the word's letters are getten rid of on the other side. The other person guesses the word. The earn 1 point for getting it correct. If it's wrong, the computer tells you that. Once an answer is given, the players swap roles. This continues on and on until you close this website.</h3>
+</center>
+<style>
+	input{
+		font-size: 17px;
+                border-radius: 10px;
+                border-width: 1px;
+                box-shadow: 0px 0px 10px blueviolet;
+              }
+              #p1{
+                  background-color: lightgreen;
+                border-radius: 10px;
+                border-width: 1px;
+                box-shadow: 0px 0px 10px black;
+                text-align:center;
+              }
+              #p2{
+                background-color: turquoise;
+                border-radius: 10px;
+                border-width: 1px;
+                box-shadow: 0px 0px 10px black;
+              }
+			  #underscore{
+				background-color: rgb(226, 144, 144);
+				border-radius: 10px;
+				border-width: 1px;
+				box-shadow: 0px 0px 10px black;
+			  }
+			  h3{
+				margin-left:30px;
+                margin-right:30px;
+			  }
+</style>
+</center>
+</body>
+</html>
